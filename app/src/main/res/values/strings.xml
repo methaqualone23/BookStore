@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Book Store</string>
+
+    <string name="action_insert_test_data">Insert Test Data</string>
+</resources>
