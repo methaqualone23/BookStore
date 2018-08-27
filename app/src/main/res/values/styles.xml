@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -6,6 +6,63 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="CardView">
+        <item name="android:backgroundTint" tools:targetApi="lollipop">
+            @color/cardview_light_background
+        </item>
+        <item name="android:radius">@dimen/cardview_default_radius</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:paddingBottom">@dimen/dp_8</item>
+    </style>
+
+    <style name="MainText">
+        <item name="android:fontFamily" tools:targetApi="jelly_bean">sans-serif-medium</item>
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+        <item name="android:textColor">@color/mainTextColor</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:paddingBottom">@dimen/dp_8</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">2</item>
+    </style>
+
+    <style name="SecondaryText">
+        <item name="android:fontFamily" tools:targetApi="jelly_bean">sans-serif</item>
+        <item name="android:textAppearance">?android:textAppearanceSmall</item>
+        <item name="android:textColor">@color/secondaryTextColor</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    <style name="TertiaryText">
+        <item name="android:fontFamily" tools:targetApi="jelly_bean">sans-serif</item>
+        <item name="android:textAppearance">?android:textAppearanceSmall</item>
+        <item name="android:textColor">@color/mainTextColor</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    <style name="EditText">
+        <item name="android:textColor">@color/mainTextColor</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="RLayout">
+        <item name="android:divider">#c2c2c2</item>
+        <item name="android:dividerHeight">1dp</item>
+        <item name="android:dividerPadding">8dp</item>
+    </style>
+
+    <style name="MainButton">
+        <item name="android:background">@color/colorAccent</item>
+        <item name="android:textColor">@color/buttonTextColor</item>
+        <item name="android:layout_marginTop">@dimen/dp_8</item>
+        <item name="android:layout_marginBottom">@dimen/dp_8</item>
+    </style>
+
+    <style name="EditorFieldStyle">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:fontFamily" tools:targetApi="jelly_bean">sans-serif-light</item>
+        <item name="android:textAppearance">?android:textAppearanceSmall</item>
+        <item name="android:inputType">textCapWords</item>
     </style>
 
 </resources>

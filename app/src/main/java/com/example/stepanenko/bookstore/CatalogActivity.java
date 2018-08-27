@@ -1,99 +1,83 @@
 package com.example.stepanenko.bookstore;
 
-import android.content.ContentValues;
+import android.app.LoaderManager;
+import android.content.ContentUris;
+import android.content.CursorLoader;
+import android.content.Intent;
+import android.content.Loader;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.TextView;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ListView;
 
 import com.example.stepanenko.bookstore.data.BookContract.BookEntry;
-import com.example.stepanenko.bookstore.data.BookDbHelper;
 
-public class CatalogActivity extends AppCompatActivity {
-    private BookDbHelper dbHelper;
+public class CatalogActivity extends AppCompatActivity implements
+        LoaderManager.LoaderCallbacks<Cursor> {
+    private static final int BOOK_LOADER = 0;
+
+    BookCursorAdapter bookCursorAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_catalog);
-        dbHelper = new BookDbHelper(this);
-    }
+        ListView inStockListView = findViewById(R.id.list);
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        displayDatabaseInfo();
-    }
+        bookCursorAdapter = new BookCursorAdapter(this, null);
+        inStockListView.setAdapter(bookCursorAdapter);
 
-    private void displayDatabaseInfo() {
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-
-        String[] projection = {BookEntry._ID, BookEntry.COLUMN_NAME, BookEntry.COLUMN_PRICE, BookEntry.COLUMN_QUANTITY, BookEntry.COLUMN_SUPPLIER, BookEntry.COLUMN_SUPPLIER_PHONE};
-
-        Cursor cursor = db.query(BookEntry.TABLE_NAME, projection, null, null, null, null, null);
-        TextView displayView = findViewById(R.id.text_view_books);
-
-        //simple check, if everything is OK
-        try {
-            displayView.setText("Table rows: " + cursor.getCount() + "\n");
-            displayView.append(BookEntry._ID + " - " +
-                    BookEntry.COLUMN_NAME + " - " + BookEntry.COLUMN_PRICE + " - " + BookEntry.COLUMN_QUANTITY + " - " + BookEntry.COLUMN_SUPPLIER + " - " + BookEntry.COLUMN_SUPPLIER_PHONE + "\n");
-
-            int idColumnIndex = cursor.getColumnIndex(BookEntry._ID);
-            int nameColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_NAME);
-            int priceColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_PRICE);
-            int quantityColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_QUANTITY);
-            int supplierColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_SUPPLIER);
-            int phoneColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_SUPPLIER_PHONE);
-
-            while (cursor.moveToNext()) {
-                int currentID = cursor.getInt(idColumnIndex);
-                String currentName = cursor.getString(nameColumnIndex);
-                int currentPrice = cursor.getInt(priceColumnIndex);
-                int currentQuantity = cursor.getInt(quantityColumnIndex);
-                String currentSupplier = cursor.getString(supplierColumnIndex);
-                String currentPhone = cursor.getString(phoneColumnIndex);
-
-                displayView.append(("\n" + currentID + " - " +
-                        currentName + " - " + currentPrice + " - " + currentQuantity + " - " + currentSupplier + " - " + currentPhone));
+        Button saleButton = findViewById(R.id.sale_button);
+ /*       saleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO: finish reduceQuantity method
+                *//*reduceQuantity();*//*
             }
-        } finally {
-            cursor.close();
-        }
-    }
+        });*/
+        
 
-    private void addBook() {
+        inStockListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent detailsIntent = new Intent(CatalogActivity.this, DetailsActivity.class);
+                Uri currentBookUri = ContentUris.withAppendedId(BookEntry.CONTENT_URI, id);
+                detailsIntent.setData(currentBookUri);
+                startActivity(detailsIntent);
+            }
+        });
 
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-
-        ContentValues testDataValues = new ContentValues();
-        testDataValues.put(BookEntry.COLUMN_NAME, "The Lord Of The Rings");
-        testDataValues.put(BookEntry.COLUMN_PRICE, 12);
-        testDataValues.put(BookEntry.COLUMN_QUANTITY, 124);
-        testDataValues.put(BookEntry.COLUMN_SUPPLIER, "New Line Production");
-        testDataValues.put(BookEntry.COLUMN_SUPPLIER_PHONE, "+44 3069 990274");
-        long newRowId = db.insert(BookEntry.TABLE_NAME, null, testDataValues);
-        Log.v("ROW_ID", "Id is: " + newRowId);
+        getLoaderManager().initLoader(BOOK_LOADER, null, this);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_catalog, menu);
-        return true;
+    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+        String[] projection = {
+                BookEntry._ID,
+                BookEntry.COLUMN_NAME,
+                BookEntry.COLUMN_PRICE,
+                BookEntry.COLUMN_QUANTITY};
+
+        return new CursorLoader(this,
+                BookEntry.CONTENT_URI,
+                projection,
+                null,
+                null,
+                null);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_insert_test_data:
-                addBook();
-                displayDatabaseInfo();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        bookCursorAdapter.swapCursor(data);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        bookCursorAdapter.swapCursor(null);
     }
 }

@@ -5,9 +5,12 @@
     android:layout_height="match_parent"
     tools:context=".CatalogActivity">
 
-    <TextView
-        android:id="@+id/text_view_books"
+    <ListView
+        android:id="@+id/list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="@dimen/margin_16" />
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_8">
+    </ListView>
+
+
 </RelativeLayout>

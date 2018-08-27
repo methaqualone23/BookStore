@@ -16,6 +16,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".DetailsActivity"
+            android:parentActivityName=".CatalogActivity"
+            android:label="@string/header_book">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".CatalogActivity" />
+        </activity>
+        <activity
+            android:name=".EditActivity"
+            android:parentActivityName=".DetailsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".CatalogActivity" />
+        </activity>
+
+        <provider
+            android:name=".data.BookProvider"
+            android:authorities="com.example.stepanenko.books"
+            android:exported="false" />
     </application>
 
 </manifest>
