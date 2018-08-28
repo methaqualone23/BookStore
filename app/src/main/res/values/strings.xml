@@ -7,6 +7,7 @@
     <string name="save_item">Save item</string>
     <string name="sale">Sale</string>
     <string name="delete_item">Delete item</string>
+    <string name="empty_view_text">Tap Add button to add new items.</string>
 
     <!--Edit & Details Activity-->
     <string name="activity_title_add">Add new item</string>
@@ -28,15 +29,18 @@
     <string name="catalog_add_item_menu">Add item</string>
     <string name="catalog_test_data_menu">Insert test data</string>
     <string name="catalog_delete_data_menu">Delete all data</string>
+    <string name="edit_delete_item_menu">Delete item</string>
     <string name="details_edit_item_menu">Edit item</string>
 
     <!--Toasts-->
     <string name="toast_added_success">Item added successfully</string>
     <string name="toast_added_failed">Something went wrong. Item was not added</string>
-    <string name="toast_edited_success">Item edited successfully</string>
-    <string name="toast_edited_failed">Unable to edit current item</string>
+    <string name="toast_edited_success">Item updated successfully</string>
+    <string name="toast_edited_failed">Unable to update current item</string>
     <string name="toast_delete_success">Item deleted</string>
     <string name="toast_delete_failed">Error with deleting item</string>
+    <string name="toast_invalid_quantity">Please enter positive number</string>
+    <string name="toast_invalid_phone">Please enter phone number</string>
 
     <!--Alerts-->
     <string name="unsaved_changes_dialog_msg">Discard your changes and quit editing?</string>
@@ -46,4 +50,10 @@
     <string name="delete">Delete</string>
     <string name="cancel">Cancel</string>
 
+    <!--Exceptions-->
+    <string name="invalid_name">Name is empty or invalid</string>
+    <string name="invalid_price">Price is empty or negative</string>
+    <string name="invalid_quantity">Quantity is empty or negative</string>
+    <string name="invalid_supplier">Supplier is empty or invalid</string>
+    <string name="invalid_supplier_phone">Phone is empty or invalid</string>
 </resources>

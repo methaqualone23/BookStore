@@ -21,7 +21,6 @@ public class BookDbHelper extends SQLiteOpenHelper {
                 BookEntry.COLUMN_QUANTITY + " INTEGER NOT NULL DEFAULT 0, " +
                 BookEntry.COLUMN_SUPPLIER + " TEXT NOT NULL," +
                 BookEntry.COLUMN_SUPPLIER_PHONE + " TEXT);";
-
         db.execSQL(SQL_CREATE_BOOKS_TABLE);
     }
 

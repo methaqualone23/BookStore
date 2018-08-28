@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.util.Log;
+
 import com.example.stepanenko.bookstore.data.BookContract.BookEntry;
 
 public class BookProvider extends ContentProvider {

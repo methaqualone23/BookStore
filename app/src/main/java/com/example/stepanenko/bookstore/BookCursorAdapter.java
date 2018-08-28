@@ -22,7 +22,7 @@ public class BookCursorAdapter extends CursorAdapter {
     }
 
     @Override
-    public void bindView(View view, Context context, Cursor cursor) {
+    public void bindView(View view, final Context context, Cursor cursor) {
         TextView nameTextView = view.findViewById(R.id.name);
         TextView priceTextView = view.findViewById(R.id.price);
         TextView quantityTextView = view.findViewById(R.id.quantity);
@@ -38,5 +38,16 @@ public class BookCursorAdapter extends CursorAdapter {
         nameTextView.setText(bookName);
         priceTextView.setText(bookPrice);
         quantityTextView.setText(bookQuantity);
+
+        final long id = cursor.getLong(cursor.getColumnIndex(BookEntry._ID));
+        final int inStockQuantity = Integer.parseInt(bookQuantity);
+
+        view.findViewById(R.id.sale_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CatalogActivity catalogActivity = (CatalogActivity) context;
+                catalogActivity.reduceQuantity(id, inStockQuantity);
+            }
+        });
     }
 }

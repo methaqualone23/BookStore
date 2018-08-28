@@ -8,15 +8,6 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="CardView">
-        <item name="android:backgroundTint" tools:targetApi="lollipop">
-            @color/cardview_light_background
-        </item>
-        <item name="android:radius">@dimen/cardview_default_radius</item>
-        <item name="android:layout_gravity">center</item>
-        <item name="android:paddingBottom">@dimen/dp_8</item>
-    </style>
-
     <style name="MainText">
         <item name="android:fontFamily" tools:targetApi="jelly_bean">sans-serif-medium</item>
         <item name="android:textAppearance">?android:textAppearanceMedium</item>
@@ -33,12 +24,14 @@
         <item name="android:textColor">@color/secondaryTextColor</item>
         <item name="android:textSize">14sp</item>
     </style>
+
     <style name="TertiaryText">
         <item name="android:fontFamily" tools:targetApi="jelly_bean">sans-serif</item>
         <item name="android:textAppearance">?android:textAppearanceSmall</item>
         <item name="android:textColor">@color/mainTextColor</item>
         <item name="android:textSize">14sp</item>
     </style>
+
     <style name="EditText">
         <item name="android:textColor">@color/mainTextColor</item>
         <item name="android:textSize">14sp</item>
