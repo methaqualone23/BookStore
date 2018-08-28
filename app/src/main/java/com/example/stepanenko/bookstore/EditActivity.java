@@ -143,50 +143,51 @@ public class EditActivity extends AppCompatActivity implements
         });
     }
 
-    private boolean saveData() {
-        String nameString = "";
-        float priceString;
-        int quantityString;
-        String supplierString = "";
-        String supplierPhoneString = "";
+    private void saveData() {
 
-        try {
-            nameString = bindNameEditText.getText().toString().trim();
-            priceString = Float.parseFloat(bindPriceEditText.getText().toString().trim());
-            quantityString = Integer.parseInt(bindQuantityEditText.getText().toString().trim());
-            supplierString = bindSupplierEditText.getText().toString().trim();
-            supplierPhoneString = bindSupplierPhoneEditText.getText().toString().trim();
-        } catch (NumberFormatException e) {
-            return OPERATION_FAILED;
+        String nameString = bindNameEditText.getText().toString().trim();
+        if (nameString.equals("")) {
+            Toast.makeText(this, R.string.invalid_name, Toast.LENGTH_LONG).show();
+            return;
         }
-        try {
-            if (TextUtils.isEmpty(nameString)) {
-                Toast.makeText(this, getString(R.string.invalid_name),
-                        Toast.LENGTH_SHORT).show();
-                throw new IllegalArgumentException(this.getResources().getString(R.string.invalid_name));
-            }
-            if (priceString <= 0) {
-                Toast.makeText(this, getString(R.string.invalid_price),
-                        Toast.LENGTH_SHORT).show();
-                throw new IllegalArgumentException(this.getResources().getString(R.string.invalid_price));
-            }
-            if (quantityString < 0) {
-                Toast.makeText(this, getString(R.string.invalid_quantity),
-                        Toast.LENGTH_SHORT).show();
-                throw new IllegalArgumentException(this.getResources().getString(R.string.invalid_quantity));
-            }
-            if (TextUtils.isEmpty(supplierString)) {
-                Toast.makeText(this, getString(R.string.invalid_supplier),
-                        Toast.LENGTH_SHORT).show();
-                throw new IllegalArgumentException(this.getResources().getString(R.string.invalid_supplier));
-            }
-            if (TextUtils.isEmpty(supplierPhoneString)) {
-                Toast.makeText(this, getString(R.string.invalid_supplier_phone),
-                        Toast.LENGTH_SHORT).show();
-                throw new IllegalArgumentException(this.getResources().getString(R.string.invalid_supplier_phone));
-            }
-        } catch (IllegalArgumentException e) {
-            return OPERATION_FAILED;
+
+        Integer priceString = 0;
+        if (!bindPriceEditText.getText().toString().equals("")) {
+            priceString = Integer.parseInt(bindPriceEditText.getText().toString());
+        }
+        if (bindPriceEditText.getText().toString().equals("") || priceString < 0) {
+            Toast.makeText(this, R.string.invalid_price, Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        Integer quantityString = 1;
+        if (!bindQuantityEditText.getText().toString().equals("")) {
+            quantityString = Integer.parseInt(bindQuantityEditText.getText().toString().trim());
+        }
+        if (bindQuantityEditText.getText().toString().equals("") || quantityString < 0) {
+            Toast.makeText(this, R.string.invalid_quantity, Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        String supplierString = bindSupplierEditText.getText().toString().trim();
+        if (supplierString.equals("")) {
+            Toast.makeText(this, R.string.invalid_supplier, Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        String supplierPhoneString = "";
+        if (!bindSupplierPhoneEditText.getText().toString().equals("")) {
+            supplierPhoneString = bindSupplierPhoneEditText.getText().toString().trim();
+        }
+        if (bindSupplierPhoneEditText.getText().toString().equals("")) {
+            Toast.makeText(this, R.string.invalid_supplier_phone, Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        if (bindCurrentBookUri == null &&
+                TextUtils.isEmpty(nameString) && priceString <=0 &&
+               quantityString < 0 && TextUtils.isEmpty(supplierString) && TextUtils.isEmpty(supplierPhoneString)) {
+            return;
         }
 
         ContentValues values = new ContentValues();
@@ -216,7 +217,6 @@ public class EditActivity extends AppCompatActivity implements
                         Toast.LENGTH_SHORT).show();
             }
         }
-        return OPERATION_SUCCESS;
     }
 
     @Override
