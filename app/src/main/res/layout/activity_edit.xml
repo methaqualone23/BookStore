@@ -46,13 +46,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingRight="@dimen/dp_8"
-                android:text="@string/category_price"
-                android:inputType="number"/>
+                android:text="@string/category_price" />
 
             <EditText
                 android:id="@+id/edit_book_price"
                 style="@style/EditorFieldStyle"
-                android:hint="@string/category_price_hint" />
+                android:hint="@string/category_price_hint"
+                android:inputType="number" />
         </LinearLayout>
 
         <RelativeLayout
@@ -152,7 +152,7 @@
                 android:layout_toEndOf="@id/category_supplier_phone_label"
                 android:layout_toRightOf="@id/category_supplier_phone_label"
                 android:hint="@string/category_supplier_phone_hint"
-                android:inputType="number"/>
+                android:inputType="number" />
 
             <ImageView
                 android:id="@+id/make_call"
